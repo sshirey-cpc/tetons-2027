@@ -1,4 +1,4 @@
-# Tetons 2027
+# Tetons Adventure
 
 Planning site for the June 2027 Grand Teton trip: itinerary, flights from DC and New Orleans, activities, and booking checklist.
 
