@@ -2,472 +2,597 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Tetons Adventure</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tetons Adventure</title>
+<meta name="description" content="Grand Teton trip planner, June 11–17, 2027: itinerary, live weather, lodging, flights and checklists.">
+<meta property="og:title" content="Tetons Adventure · June 2027">
+<meta property="og:image" content="https://sshirey-cpc.github.io/tetons-2027/img/moran_string.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: a single trail-guide column; day cards read like trail markers, with a sticky section bar */
+/* Layout: photo-led trail guide. Full-bleed hero, sticky section bar, day cards with banner photos, live weather. */
 :root{
-  --bg:#f3f5f4; --surface:#ffffff; --ink:#1d2a33; --muted:#5b6a72; --line:#d6dedd;
-  --granite:#3c5566; --pine:#2f5d4a; --glow:#c2546a; --glow-soft:#f6e3e7; --pine-soft:#e3eee8; --warn:#9a6a12; --warn-soft:#f8eed6;
+  --bg:#f2f4f2; --surface:#ffffff; --ink:#18242c; --muted:#56656d; --line:#d5ddda;
+  --spruce:#1f4b3f; --spruce-soft:#e1ece6; --granite:#344e5e; --glacier:#2f7ea3; --glacier-soft:#e2f0f6;
+  --alpenglow:#c4566c; --glow-soft:#f7e4e8; --sun:#8a5f0a; --sun-soft:#f8eed7;
   --display:"Zilla Slab", Rockwell, "Roboto Slab", Georgia, serif;
-  --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --body:"Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#12191e; --surface:#1a242b; --ink:#e4ebee; --muted:#9aabb3; --line:#2d3b44;
-  --granite:#9cb8cb; --pine:#7fbf9f; --glow:#e88b9e; --glow-soft:#3a2229; --pine-soft:#1c2e26; --warn:#e2b55a; --warn-soft:#352a14; color-scheme:dark}}
+  --bg:#10171b; --surface:#18232a; --ink:#e5ecef; --muted:#9db0b8; --line:#2b3a43;
+  --spruce:#86c9ac; --spruce-soft:#1a2e27; --granite:#a9c2d2; --glacier:#7cc3e4; --glacier-soft:#16303c;
+  --alpenglow:#ec8fa2; --glow-soft:#3a2229; --sun:#e5b65c; --sun-soft:#352a14; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#12191e; --surface:#1a242b; --ink:#e4ebee; --muted:#9aabb3; --line:#2d3b44;
-  --granite:#9cb8cb; --pine:#7fbf9f; --glow:#e88b9e; --glow-soft:#3a2229; --pine-soft:#1c2e26; --warn:#e2b55a; --warn-soft:#352a14; color-scheme:dark}
+  --bg:#10171b; --surface:#18232a; --ink:#e5ecef; --muted:#9db0b8; --line:#2b3a43;
+  --spruce:#86c9ac; --spruce-soft:#1a2e27; --granite:#a9c2d2; --glacier:#7cc3e4; --glacier-soft:#16303c;
+  --alpenglow:#ec8fa2; --glow-soft:#3a2229; --sun:#e5b65c; --sun-soft:#352a14; color-scheme:dark}
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body);margin:0}
-.wrap{max-width:52rem;margin:0 auto;padding-inline:16px;padding-block:0 4rem}
-h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
-h2{font-size:1.75rem;color:var(--granite)}
-h3{font-size:1.2rem}
+html{scroll-padding-top:4rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.6 var(--body)}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance}
+h2{font-size:clamp(1.7rem,4vw,2.3rem);color:var(--granite)}
+h3{font-size:1.25rem}
 p{margin:0}
-a{color:var(--granite);text-underline-offset:2px}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
-.label{font:600 .75rem/1 var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.mono{font-family:var(--mono);font-size:.85em;font-variant-numeric:tabular-nums}
+a{color:var(--glacier);text-underline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--alpenglow);outline-offset:2px}
+.wrap{max-width:60rem;margin:0 auto;padding-inline:16px}
+.label{font:700 .74rem/1.2 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono);font-size:.9em;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
 
-/* hero */
-header.hero{padding-block:2.75rem 2rem;display:grid;gap:1rem}
-.ridge{width:100%;height:auto;display:block;color:var(--granite)}
-.hero h1{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700}
-.hero h1 span{color:var(--glow)}
-.hero .lede{font-size:1.15rem;color:var(--muted);max-width:40rem}
-.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr));gap:.75rem;margin-top:.5rem}
-.fact{border-top:2px solid var(--line);padding-top:.5rem;display:grid;gap:.25rem}
-.fact b{font-weight:600}
+.hero{position:relative;color:#fff;background:#1c2a33 url(img/moran_string.jpg) center 40%/cover no-repeat;min-height:clamp(30rem,78vh,44rem);display:flex;align-items:flex-end}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,26,.1) 0%,rgba(10,20,26,.25) 45%,rgba(10,20,26,.85) 100%)}
+.hero .wrap{position:relative;z-index:1;padding-block:3rem 3.5rem;width:100%;display:grid;gap:1rem}
+.hero .eyebrow{font:700 .8rem var(--body);letter-spacing:.14em;text-transform:uppercase;color:#f6dbe1}
+.hero h1{font-size:clamp(2.8rem,9vw,5.2rem);font-weight:700;letter-spacing:-.01em}
+.hero .lede{font-size:1.2rem;max-width:36rem;color:#eef3f5}
+.countdown{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.25rem}
+.countdown div{background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:.5rem .85rem;min-width:5.4rem}
+.countdown b{display:block;font:600 1.6rem var(--display);font-variant-numeric:tabular-nums}
+.countdown span{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#e1e9ec}
+.hero .credit{position:absolute;right:10px;bottom:6px;z-index:1;font-size:.7rem;color:rgba(255,255,255,.75)}
 
-/* nav */
-nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);overflow-x:auto}
-nav.bar ul{list-style:none;display:flex;gap:1.25rem;margin:0 auto;padding-inline:16px;padding-block:.7rem;max-width:52rem;white-space:nowrap}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:-1.75rem;position:relative;z-index:2;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+.fact{background:var(--surface);padding:.9rem 1rem;display:grid;gap:.15rem}
+.fact b{font-size:1.05rem}
+
+nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line);margin-top:1.5rem}
+nav.bar ul{list-style:none;display:flex;gap:1.1rem;margin:0 auto;padding:.7rem 16px;max-width:60rem;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
 nav.bar a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted)}
 nav.bar a:hover{color:var(--ink)}
 
-section{padding-top:3rem;display:grid;gap:1.25rem;scroll-margin-top:3.5rem}
-.intro{color:var(--muted);max-width:42rem}
+section{padding-top:3.5rem;display:grid;gap:1.25rem}
+.intro{color:var(--muted);max-width:44rem}
 
-/* date toggle */
-.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);width:max-content;max-width:100%}
-.toggle button{font:600 .9rem var(--body);border:0;background:transparent;color:var(--muted);padding:.4rem .9rem;border-radius:999px;cursor:pointer}
-.toggle button[aria-pressed="true"]{background:var(--granite);color:var(--bg)}
-
-/* notes */
-.notes{display:grid;gap:.75rem}
-.note{display:grid;grid-template-columns:auto 1fr;gap:.75rem;align-items:start;background:var(--warn-soft);border-radius:8px;padding:.85rem 1rem}
-.note .tag{font:600 .7rem/1.6 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--warn);min-width:4.5rem}
-.note p{min-width:0}
-
-/* days */
-.days{display:grid;gap:1rem;counter-reset:none}
-.day{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.25rem;display:grid;gap:.85rem}
-.day-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem 1rem}
-.day-head .date{font:500 .85rem var(--mono);color:var(--glow)}
-.day-head h3{flex:1 1 16rem}
-.drive{font-size:.9rem;color:var(--muted)}
-.sched{display:grid;grid-template-columns:5.2rem 1fr;gap:.45rem .9rem;margin:0}
-.sched dt{font:500 .85rem/1.6 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
-.sched dd{margin:0;min-width:0}
-.choices{display:flex;flex-wrap:wrap;gap:.4rem}
-.chip{font-size:.8rem;font-weight:600;padding:.15rem .6rem;border-radius:999px;background:var(--pine-soft);color:var(--pine)}
-.chip.opt{background:var(--glow-soft);color:var(--glow)}
-
-/* tables */
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.95rem}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.97rem}
 th,td{text-align:left;padding:.65rem .85rem;border-bottom:1px solid var(--line);vertical-align:top}
-th{font:600 .75rem var(--body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+th{font:700 .74rem var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
 tr:last-child td{border-bottom:0}
 td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.blank{color:var(--muted);font-style:italic}
+.stay-a{color:var(--spruce);font-weight:600}.stay-b{color:var(--glacier);font-weight:600}
 
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1rem}
-.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;display:grid;gap:.6rem;align-content:start}
-.panel ul{margin:0;padding-left:1.1rem;display:grid;gap:.35rem}
-.rec{border-left:3px solid var(--pine);padding-left:.9rem}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.75rem}
+.note{background:var(--sun-soft);border-radius:10px;padding:.9rem 1rem;display:grid;gap:.3rem;align-content:start}
+.note .label{color:var(--sun)}
 
-/* checklist */
-.check{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
-.check li{display:grid;grid-template-columns:auto 1fr auto;gap:.75rem;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.7rem .9rem}
-.check input{width:1.1rem;height:1.1rem;margin-top:.25rem;accent-color:var(--pine)}
-.check label{min-width:0;cursor:pointer}
-.check label small{display:block;color:var(--muted);font-size:.88rem}
-.check .when{font:500 .75rem var(--mono);color:var(--muted);white-space:nowrap;margin-top:.3rem}
-.check li.done label{text-decoration:line-through;color:var(--muted)}
+.days{display:grid;gap:1.25rem}
+.phase{display:flex;align-items:center;gap:.75rem;margin-top:1rem}
+.phase::after{content:"";flex:1;height:1px;background:var(--line)}
+.day{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid}
+.day > figure{margin:0;position:relative;aspect-ratio:21/8;background:var(--line);overflow:hidden}
+.day > figure img,.track figure img,.stay figure img{width:100%;height:100%;object-fit:cover}
+figcaption{position:absolute;left:0;right:0;bottom:0;padding:1.6rem .9rem .5rem;background:linear-gradient(transparent,rgba(0,0,0,.65));color:#fff;font-size:.76rem}
+.day-body{padding:1.15rem 1.25rem 1.3rem;display:grid;gap:.85rem}
+.day-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem 1rem}
+.day-head .date{font:500 .85rem var(--mono);color:var(--alpenglow)}
+.day-head h3{flex:1 1 16rem}
+.drive{font-size:.92rem;color:var(--muted)}
+.sched{display:grid;grid-template-columns:5.6rem 1fr;gap:.45rem .9rem;margin:0}
+.sched dt{font:500 .85rem/1.65 var(--mono);color:var(--muted)}
+.sched dd{margin:0;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{font-size:.8rem;font-weight:600;padding:.15rem .65rem;border-radius:999px;background:var(--spruce-soft);color:var(--spruce)}
+.chip.opt{background:var(--glow-soft);color:var(--alpenglow)}
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1rem}
+.track{border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;align-content:start;background:var(--bg);min-width:0}
+.track figure{margin:0;position:relative;aspect-ratio:16/9;overflow:hidden}
+.track .inner{padding:.9rem 1rem 1rem;display:grid;gap:.6rem}
+.track.car .label{color:var(--alpenglow)}
+.track.stay .label{color:var(--spruce)}
+.track ul{margin:0;padding-left:1.1rem;display:grid;gap:.3rem}
+
+.wx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1rem}
+.wx{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;display:grid;gap:.8rem;min-width:0}
+.wx-top{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.wx-now{display:flex;align-items:center;gap:1rem}
+.wx-now .temp{font:600 2.6rem/1 var(--display);font-variant-numeric:tabular-nums}
+.wx-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.25rem;text-align:center;font-size:.8rem}
+.wx-days div{display:grid;gap:.1rem;padding:.35rem .1rem;border-radius:8px}
+.wx-days div.trip{background:var(--glow-soft)}
+.wx-days b{font-variant-numeric:tabular-nums;font-size:.9rem}
+.wx-days .lo{color:var(--muted);font-variant-numeric:tabular-nums}
+.ico{width:26px;height:26px;margin:0 auto;color:var(--glacier)}
+.wx-now .ico{width:44px;height:44px;margin:0}
+.normals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem}
+.normals div{background:var(--bg);border-radius:10px;padding:.6rem .7rem}
+.normals div.now{background:var(--glacier-soft);outline:1px solid var(--glacier)}
+.normals b{font:600 1.3rem var(--display);font-variant-numeric:tabular-nums}
+
+.stays{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1rem}
+.stay{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:grid;align-content:start}
+.stay figure{margin:0;aspect-ratio:16/9;overflow:hidden;position:relative}
+.stay .inner{padding:1rem 1.1rem 1.2rem;display:grid;gap:.55rem}
+.stay ul{margin:0;padding-left:1.1rem;display:grid;gap:.25rem}
+.pill{display:inline-block;font:700 .7rem var(--body);letter-spacing:.08em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;background:var(--spruce);color:var(--surface);width:max-content}
+details.more{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.8rem 1rem}
+details.more summary{cursor:pointer;font-weight:600}
+details.more[open] summary{margin-bottom:.6rem}
+
+.progress{display:grid;gap:.4rem;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
+.progress-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+.bar{height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--spruce);border-radius:999px;transition:width .3s}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap}
+.tabs button{font:600 .92rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:.45rem .95rem;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--granite);color:var(--surface);border-color:var(--granite)}
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.25rem}
+.cat{display:grid;gap:.45rem;align-content:start;min-width:0}
+.cat h3{font-size:1.05rem}
+.items{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.items li{display:grid;grid-template-columns:auto 1fr auto;gap:.7rem;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.65rem .85rem}
+.items input{width:1.15rem;height:1.15rem;margin-top:.2rem;accent-color:var(--spruce)}
+.items label{min-width:0;cursor:pointer}
+.items small{display:block;color:var(--muted);font-size:.87rem}
+.items .when{font:500 .74rem var(--mono);color:var(--muted);white-space:nowrap;margin-top:.3rem}
+.items li.done label{text-decoration:line-through;color:var(--muted)}
 
 .sources{font-size:.9rem;color:var(--muted)}
-.sources ul{padding-left:1.1rem;display:grid;gap:.25rem}
-footer{margin-top:3rem;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
+.sources ul{padding-left:1.1rem;display:grid;gap:.25rem;margin:0}
+footer{margin-top:3.5rem;padding-block:1.25rem 3rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 
-@media (max-width:30rem){.sched{grid-template-columns:4.4rem 1fr}.check li{grid-template-columns:auto 1fr}.check .when{grid-column:2}}
+@media (max-width:34rem){.sched{grid-template-columns:4.6rem 1fr}.items li{grid-template-columns:auto 1fr}.items .when{grid-column:2}.day > figure{aspect-ratio:16/9}.wx-days{font-size:.72rem}}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 </style>
 </head>
 <body>
 
-<div class="wrap">
 <header class="hero">
-  <svg class="ridge" viewBox="0 0 800 90" aria-hidden="true" preserveAspectRatio="none">
-    <path d="M0 90 L70 62 L120 70 L190 38 L230 50 L300 8 L332 30 L360 18 L410 52 L470 34 L520 58 L590 40 L650 64 L720 52 L800 70 L800 90 Z" fill="currentColor" opacity=".18"/>
-    <path d="M0 90 L70 62 L120 70 L190 38 L230 50 L300 8 L332 30 L360 18 L410 52 L470 34 L520 58 L590 40 L650 64 L720 52 L800 70" fill="none" stroke="currentColor" stroke-width="2"/>
-    <path d="M300 8 L316 20 L310 22 L322 30 L332 30" fill="none" stroke="var(--glow)" stroke-width="2"/>
-  </svg>
-  <p class="label">Grand Teton National Park · June 2027</p>
-  <h1><span>Tetons</span> Adventure</h1>
-  <p class="lede">Six nights on Jackson Lake with water days, hikes, a Snake River float, an optional Yellowstone day for John's bucket list, and fly fishing.</p>
-  <div class="facts">
-    <div class="fact"><span class="label">Dates</span><b>Fri Jun 11 or Sat Jun 12</b><span class="intro">6 nights, still to decide</span></div>
-    <div class="fact"><span class="label">Base camp</span><b>Colter Bay + Jackson</b><span class="intro">4 nights in cabins, 2 in town</span></div>
-    <div class="fact"><span class="label">Travelers</span><b>7 flying in</b><span class="intro">2 from DC · 5 from New Orleans</span></div>
-    <div class="fact"><span class="label">Fly into</span><b>Jackson Hole (JAC)</b><span class="intro">9 miles to town by shuttle or taxi</span></div>
+  <div class="wrap">
+    <span class="eyebrow">Grand Teton National Park · June 11–17, 2027</span>
+    <h1>Tetons Adventure</h1>
+    <p class="lede">Two nights in Jackson, four in log cabins on Jackson Lake. Moose at dawn, a float down the Snake, a day at Yellowstone, and plenty of lake time.</p>
+    <div class="countdown" aria-label="Countdown to June 11, 2027">
+      <div><b id="cd-days">—</b><span>days to go</span></div>
+      <div><b id="cd-weeks">—</b><span>weeks</span></div>
+    </div>
   </div>
+  <span class="credit">Mount Moran from String Lake · Stan Petersen, CC BY-SA 4.0</span>
 </header>
+
+<div class="wrap">
+  <div class="facts">
+    <div class="fact"><span class="label">Dates</span><b>Fri Jun 11 – Thu Jun 17</b><span class="muted">6 nights</span></div>
+    <div class="fact"><span class="label">Stay</span><b>Jackson + Colter Bay</b><span class="muted">2 nights in town, 4 in cabins</span></div>
+    <div class="fact"><span class="label">Travelers</span><b>7</b><span class="muted">2 from DC · 5 from New Orleans</span></div>
+    <div class="fact"><span class="label">Getting around</span><b>One big rental</b><span class="muted">Picked up Sun Jun 13 in Jackson</span></div>
+  </div>
 </div>
 
 <nav class="bar" aria-label="Sections"><ul>
-  <li><a href="#june">Mid-June notes</a></li>
+  <li><a href="#plan">Plan</a></li>
   <li><a href="#itinerary">Itinerary</a></li>
-  <li><a href="#flights">Flights</a></li>
-  <li><a href="#lodging">Lodging</a></li>
-  <li><a href="#activities">Activities</a></li>
-  <li><a href="#checklist">Booking checklist</a></li>
-  <li><a href="#sources">Sources</a></li>
+  <li><a href="#weather">Weather</a></li>
+  <li><a href="#stay">Where we stay</a></li>
+  <li><a href="#travel">Flights &amp; bookings</a></li>
+  <li><a href="#checklist">Checklists</a></li>
+  <li><a href="#costs">Costs</a></li>
 </ul></nav>
 
-<div class="wrap">
+<main class="wrap">
 
-<section id="june">
-  <h2>What mid-June changes</h2>
-  <p class="intro">June 11 is early season. Most of the plan works as before, but snow and spring runoff shift a few things.</p>
+<section id="plan">
+  <h2>The plan</h2>
+  <p class="intro">John's schedule is the main plan. Option B is a fallback that puts a town night on each end. Both give three full days at Colter Bay.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Night</th><th>Option A · John's plan</th><th>Option B · town on both ends</th></tr></thead>
+    <tbody>
+      <tr><td>Fri Jun 11</td><td class="stay-b">Jackson · Antler Inn</td><td class="stay-b">Jackson</td></tr>
+      <tr><td>Sat Jun 12</td><td class="stay-b">Jackson · Antler Inn</td><td class="stay-a">Colter Bay</td></tr>
+      <tr><td>Sun Jun 13</td><td class="stay-a">Colter Bay</td><td class="stay-a">Colter Bay</td></tr>
+      <tr><td>Mon Jun 14</td><td class="stay-a">Colter Bay</td><td class="stay-a">Colter Bay</td></tr>
+      <tr><td>Tue Jun 15</td><td class="stay-a">Colter Bay</td><td class="stay-a">Colter Bay</td></tr>
+      <tr><td>Wed Jun 16</td><td class="stay-a">Colter Bay</td><td class="stay-b">Jackson</td></tr>
+      <tr><td>Thu Jun 17</td><td>Drive to JAC, return the car, fly home</td><td>Fly home from town (15 min)</td></tr>
+    </tbody>
+  </table></div>
   <div class="notes">
-    <div class="note"><span class="tag">Snow</span><p>The high country is usually still snowbound in June. The low trails around Colter Bay (Lakeshore, Swan Lake and Heron Pond) are clear. Check with a ranger the week of the trip.</p></div>
-    <div class="note"><span class="tag">Camping</span><p>High backcountry camps will likely be under snow. For the people who want a night outside, plan on Colter Bay Campground, a short walk from the cabins.</p></div>
-    <div class="note"><span class="tag">Fishing</span><p>The Snake River is in runoff in June, so guided trips start on the clear stretch below Jackson Lake Dam and on Jackson Lake. The river itself usually clears by July.</p></div>
-    <div class="note"><span class="tag">Water</span><p>The lakes are open by June, but the water is snowmelt cold. Plan for short swims and wetsuit-free paddles close to shore.</p></div>
-    <div class="note"><span class="tag">Daylight</span><p>Long days: sunrise is around 5:40 AM and sunset around 9:10 PM. Wildlife is most active near both.</p></div>
+    <div class="note"><span class="label">Snow</span><p>The high country is usually still snowbound in mid-June. The low trails around Colter Bay are clear. Check with a ranger the week of the trip.</p></div>
+    <div class="note"><span class="label">Waterfalls &amp; wildlife</span><p>Snowmelt peaks, so falls run full. It's calving season: moose, elk and bison are out with their young.</p></div>
+    <div class="note"><span class="label">Fishing</span><p>The Snake runs high with snowmelt in June. Fish Jackson Lake and the stretch below the dam; the river clears by July.</p></div>
+    <div class="note"><span class="label">Daylight</span><p>Sunrise around 5:40 AM, sunset around 9:10 PM. Wildlife is most active near both.</p></div>
   </div>
 </section>
 
 <section id="itinerary">
   <h2>Itinerary</h2>
-  <p class="intro">No car in town. Pick up one large vehicle for all 7 in Jackson the morning you head north and drop it at the airport on the way out. Each Colter Bay day has one big activity that uses the car, with plenty to do on foot for anyone who stays back. Pink tags are optional, so people can split up and meet back for dinner.</p>
-
-  <div class="tbl"><table>
-    <thead><tr><th>Night</th><th>Option A · John's plan (town first)</th><th>Option B · town on both ends</th></tr></thead>
-    <tbody>
-      <tr><td>Fri Jun 11</td><td>Jackson</td><td>Jackson</td></tr>
-      <tr><td>Sat Jun 12</td><td>Jackson</td><td>Colter Bay</td></tr>
-      <tr><td>Sun Jun 13</td><td>Colter Bay</td><td>Colter Bay</td></tr>
-      <tr><td>Mon Jun 14</td><td>Colter Bay</td><td>Colter Bay</td></tr>
-      <tr><td>Tue Jun 15</td><td>Colter Bay</td><td>Colter Bay</td></tr>
-      <tr><td>Wed Jun 16</td><td>Colter Bay</td><td>Jackson</td></tr>
-      <tr><td>Thu Jun 17</td><td>Drive to JAC, return the car, fly home</td><td>Fly home from town (15 min)</td></tr>
-    </tbody>
-  </table></div>
-  <p class="intro">Both give 2 nights in town, 4 at Colter Bay and three full days at Colter Bay. Option A means one move and the car goes straight back at the airport; Option B returns it in town and ends with a town night.</p>
+  <p class="intro">Each Colter Bay day has one big activity that uses the car. Anyone who'd rather stay back has plenty to do on foot. Pink tags are optional, so people can split up and meet back for dinner.</p>
 
   <div class="days">
-    <p class="label">In Jackson</p>
-    <article class="day">
-      <div class="day-head"><span class="date">Fri Jun 11</span><h3>Arrive in Jackson</h3></div>
-      <p class="drive">JAC airport to town: about 9 miles, by airport shuttle or taxi</p>
-      <dl class="sched">
-        <dt>Afternoon</dt><dd>Land, ride into town, check in. Pick up bear spray and snacks for the week.</dd>
-        <dt>Evening</dt><dd>Walk the Town Square and its antler arches; dinner in town.</dd>
-      </dl>
-    </article>
+    <div class="phase"><span class="label">In Jackson · no car needed</span></div>
 
     <article class="day">
-      <div class="day-head"><span class="date">Town day</span><h3>Pick your adventure in Jackson</h3></div>
-      <p class="drive">Option A: Sat Jun 12 · Option B: Wed Jun 16. Outfitters pick up in town or meet at their shop.</p>
-      <dl class="sched">
-        <dt>Morning</dt><dd>Choose: Snake River Canyon whitewater rafting, a scenic Snake River float, or the START bus to Teton Village for the aerial tram.</dd>
-        <dt>Afternoon</dt><dd>National Museum of Wildlife Art, galleries, or the Snow King gondola above town.</dd>
-        <dt>Evening</dt><dd>Celebration dinner in town. Check whether the summer rodeo is running that night.</dd>
-      </dl>
-      <div class="choices"><span class="chip opt">Whitewater</span><span class="chip opt">Scenic float</span><span class="chip opt">Tram</span><span class="chip opt">Museum</span></div>
-    </article>
-
-    <p class="label">At Colter Bay Village · one rental car</p>
-    <p class="intro">Each Colter Bay day has one big activity that uses the car. Anyone who'd rather stay back has plenty to do on foot at Colter Bay.</p>
-    <article class="day">
-      <div class="day-head"><span class="date">Colter Bay arrival</span><h3>Pick up the car and drive north together</h3></div>
-      <p class="drive">Option A: Sun Jun 13 · Option B: Sat Jun 12. Jackson to Colter Bay: about 1 hr, plus stops.</p>
-      <dl class="sched">
-        <dt>9:00 AM</dt><dd>Pick up the car in Jackson. Drive north with stops at the Mormon Row barns, Schwabacher Landing and the Snake River Overlook (the Ansel Adams view).</dd>
-        <dt>1:00 PM</dt><dd>Lunch with the big Teton window at Jackson Lake Lodge, then the short Lunch Tree Hill walk behind it.</dd>
-        <dt>4:00 PM</dt><dd>Check in. Kayaks or canoes from the marina for a first paddle.</dd>
-        <dt>Evening</dt><dd>Lakeshore Trail walk from the village at sunset (about 2 miles, easy).</dd>
-      </dl>
-      <div class="choices"><span class="chip">Everyone</span></div>
-    </article>
-
-    <article class="day">
-      <div class="day-head"><span class="date">Colter Bay day 1</span><h3>Big activity: Yellowstone</h3></div>
-      <p class="drive">Colter Bay to Old Faithful: about 1¾ hours each way via the South Entrance. A full day.</p>
-      <div class="two">
-        <div class="panel">
-          <span class="label">Yellowstone group · takes the car</span>
-          <dl class="sched">
-            <dt>6:30 AM</dt><dd>Leave with packed breakfast. Lewis Falls on the way in.</dd>
-            <dt>9:00 AM</dt><dd>Fairy Falls trail to the Grand Prismatic overlook (about 5 miles round trip, flat).</dd>
-            <dt>12:30 PM</dt><dd>Lunch at Old Faithful, catch an eruption, walk the Upper Geyser Basin.</dd>
-            <dt>4:00 PM</dt><dd>Drive back past West Thumb on Yellowstone Lake. Late dinner.</dd>
-          </dl>
-        </div>
-        <div class="panel">
-          <span class="label">Staying back at Colter Bay (no car needed)</span>
-          <ul>
-            <li>2-hour morning horseback ride from the corral, or the wagon ride for non-riders</li>
-            <li>Kayaks, canoes or a motorboat from the marina</li>
-            <li>Fishing from the shoreline, or a guided lake trip from the marina</li>
-            <li>Swan Lake and Heron Pond loop (about 3 miles, easy), or Hermitage Point (up to about 9.7 miles)</li>
-            <li>Free lodge shuttle to Jackson Lake Lodge for lunch at the big Teton window and the Lunch Tree Hill walk</li>
-          </ul>
-        </div>
+      <figure><img src="img/town.jpg" alt="Stagecoach passing an elk-antler arch on the Jackson Town Square" loading="lazy"><figcaption>Jackson Town Square · CowboyWisdom, public domain</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Fri Jun 11</span><h3>Arrive in Jackson</h3></div>
+        <p class="drive">JAC airport to town: 9 miles by airport shuttle or taxi</p>
+        <dl class="sched">
+          <dt>Afternoon</dt><dd>Land, ride into town, check in at the Antler Inn. Pick up bear spray and snacks for the week.</dd>
+          <dt>Evening</dt><dd>Walk the Town Square and its antler arches; dinner in town.</dd>
+        </dl>
+        <div class="chips"><span class="chip">Everyone</span></div>
       </div>
-      <div class="choices"><span class="chip opt">Yellowstone</span><span class="chip opt">Stay at Colter Bay</span></div>
     </article>
 
     <article class="day">
-      <div class="day-head"><span class="date">Colter Bay day 2</span><h3>Big activity: Snake River float</h3></div>
-      <p class="drive">Colter Bay to the Moose float meeting point: about 45 min</p>
-      <div class="two">
-        <div class="panel">
-          <span class="label">Float group · takes the car</span>
-          <dl class="sched">
-            <dt>Morning</dt><dd>Scenic float, about 10 miles on the Snake with the whole range in view (2–2½ hours on the water).</dd>
-            <dt>Lunch</dt><dd>Dornan's in Moose.</dd>
-            <dt>Afternoon</dt><dd>Taggart Lake loop (about 3 miles) on the way back.</dd>
-          </dl>
-        </div>
-        <div class="panel">
-          <span class="label">Staying back at Colter Bay (no car needed)</span>
-          <ul>
-            <li>2-hour morning horseback ride from the corral, or the wagon ride for non-riders</li>
-            <li>Kayaks, canoes or a motorboat from the marina</li>
-            <li>Fishing from the shoreline, or a guided lake trip from the marina</li>
-            <li>Swan Lake and Heron Pond loop (about 3 miles, easy), or Hermitage Point (up to about 9.7 miles)</li>
-            <li>Free lodge shuttle to Jackson Lake Lodge for lunch at the big Teton window and the Lunch Tree Hill walk</li>
-            <li>Jackson Lake cruise from the marina, or the breakfast or lunch cruise to Elk Island</li>
-          </ul>
-        </div>
+      <figure><img src="img/downtown.jpg" alt="Wooden boardwalks and shops in downtown Jackson with Snow King Mountain behind" loading="lazy"><figcaption>Downtown Jackson and Snow King · Greg Tally, CC BY-SA 3.0</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Sat Jun 12</span><h3>Town day: pick your adventure</h3></div>
+        <p class="drive">Outfitters pick up in town or meet at their shop. In Option B this is Wed Jun 16.</p>
+        <dl class="sched">
+          <dt>Morning</dt><dd>Choose: Snake River Canyon whitewater rafting, or the START bus to Teton Village for the aerial tram to the 10,450-ft summit.</dd>
+          <dt>Afternoon</dt><dd>National Museum of Wildlife Art, galleries, or the Snow King gondola above town.</dd>
+          <dt>Evening</dt><dd>Celebration dinner in town. Check whether the summer rodeo is running that night.</dd>
+        </dl>
+        <div class="chips"><span class="chip opt">Whitewater</span><span class="chip opt">Tram</span><span class="chip opt">Museum</span><span class="chip opt">Rodeo</span></div>
       </div>
-      <div class="choices"><span class="chip opt">Float</span><span class="chip opt">Stay at Colter Bay</span></div>
+    </article>
+
+    <div class="phase"><span class="label">At Colter Bay Village · one rental car</span></div>
+
+    <article class="day">
+      <figure><img src="img/barns.jpg" alt="The T. A. Moulton barn on Mormon Row with the Teton Range behind" loading="lazy"><figcaption>Mormon Row barn · Jon Sullivan, public domain</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Sun Jun 13</span><h3>Pick up the car and drive north together</h3></div>
+        <p class="drive">Jackson to Colter Bay: about 1 hour, plus stops</p>
+        <dl class="sched">
+          <dt>9:00 AM</dt><dd>Pick up the car in Jackson. Stops on the way north: the Mormon Row barns, Schwabacher Landing, and the Snake River Overlook where Ansel Adams made his famous photo.</dd>
+          <dt>1:00 PM</dt><dd>Lunch at Jackson Lake Lodge under its 60-foot window on Mount Moran, then the short Lunch Tree Hill walk.</dd>
+          <dt>4:00 PM</dt><dd>Check in at Colter Bay. Kayaks or canoes from the marina for a first paddle.</dd>
+          <dt>Evening</dt><dd>Lakeshore Trail at sunset (about 2 miles, easy).</dd>
+        </dl>
+        <div class="chips"><span class="chip">Everyone</span></div>
+      </div>
     </article>
 
     <article class="day">
-      <div class="day-head"><span class="date">Colter Bay day 3</span><h3>Free day close to home</h3></div>
-      <p class="drive">Everything within 20 min of Colter Bay</p>
-      <dl class="sched">
-        <dt>5:45 AM</dt><dd>Car to Oxbow Bend for sunrise (10 min): Mount Moran in the water, best odds for moose and eagles.</dd>
-        <dt>Day</dt><dd>Mix and match: horses, the Jackson Lake cruise, kayaks, fishing, Swan Lake, or the car to Two Ocean Lake (about 6.4 miles, quiet, wildflowers).</dd>
-        <dt>8:30 PM</dt><dd>Car up Signal Mountain Summit Road for sunset over the whole valley. Campers pitch tents at Colter Bay Campground for a campfire night.</dd>
-      </dl>
-      <div class="choices"><span class="chip opt">Oxbow sunrise</span><span class="chip opt">Two Ocean Lake</span><span class="chip opt">Signal Mountain sunset</span><span class="chip opt">Camp night</span></div>
+      <figure><img src="img/prismatic.jpg" alt="Grand Prismatic Spring seen from the overlook" loading="lazy"><figcaption>Grand Prismatic Spring from the overlook · Eddiewexler, CC0</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Mon Jun 14</span><h3>Big activity: Yellowstone</h3></div>
+        <p class="drive">Colter Bay to Old Faithful: about 1¾ hours each way via the South Entrance. A full day.</p>
+        <div class="split">
+          <div class="track car">
+            <figure><img src="img/oldfaithful.jpg" alt="Old Faithful erupting" loading="lazy"><figcaption>Old Faithful · Dietmar Rabich, CC BY-SA 4.0</figcaption></figure>
+            <div class="inner">
+              <span class="label">Yellowstone group · takes the car</span>
+              <dl class="sched">
+                <dt>6:30 AM</dt><dd>Leave with packed breakfast. Lewis Falls on the way in.</dd>
+                <dt>9:00 AM</dt><dd>Fairy Falls trail to the Grand Prismatic overlook (about 5 miles round trip, flat).</dd>
+                <dt>12:30 PM</dt><dd>Lunch at Old Faithful, catch an eruption, walk the Upper Geyser Basin.</dd>
+                <dt>4:00 PM</dt><dd>Drive back past West Thumb on Yellowstone Lake.</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="track stay">
+            <figure><img src="img/moose.jpg" alt="Moose grazing in a Grand Teton meadow" loading="lazy"><figcaption>Moose near Leigh Lake · CC BY-SA 3.0</figcaption></figure>
+            <div class="inner">
+              <span class="label">Staying back at Colter Bay · on foot</span>
+              <ul>
+                <li>2-hour morning horseback ride, or the wagon ride for non-riders</li>
+                <li>Kayaks, canoes or a motorboat from the marina</li>
+                <li>Fishing from the shoreline, or a guided lake trip</li>
+                <li>Swan Lake and Heron Pond loop (about 3 miles) for moose and trumpeter swans, or Hermitage Point (up to 9.7 miles)</li>
+                <li>Free lodge shuttle to Jackson Lake Lodge for lunch</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip opt">Yellowstone</span><span class="chip opt">Stay at Colter Bay</span></div>
+      </div>
     </article>
 
     <article class="day">
-      <div class="day-head"><span class="date">Leaving Colter Bay</span><h3>Head out</h3></div>
-      <p class="drive">Option A: drive to JAC Thu Jun 17 and return the car (about 50 min). Option B: drive to Jackson Wed Jun 16 and return it in town (about 1 hr).</p>
-      <dl class="sched">
-        <dt>Morning</dt><dd>Coffee on the lake and check out.</dd>
-      </dl>
+      <figure><img src="img/snake_signal.jpg" alt="The Snake River reflecting Signal Mountain" loading="lazy"><figcaption>The Snake River below Signal Mountain · Thomas Kriese, CC BY 2.0</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Tue Jun 15</span><h3>Big activity: Snake River float</h3></div>
+        <p class="drive">Colter Bay to the Moose float meeting point: about 45 min</p>
+        <div class="split">
+          <div class="track car">
+            <figure><img src="img/adams.jpg" alt="Ansel Adams photograph of the Snake River winding below the Tetons" loading="lazy"><figcaption>The Tetons and the Snake River, Ansel Adams, 1942 · public domain</figcaption></figure>
+            <div class="inner">
+              <span class="label">Float group · takes the car</span>
+              <dl class="sched">
+                <dt>Morning</dt><dd>Scenic float, about 10 miles on the Snake with the whole range in view (2–2½ hours on the water). Eagles, moose and beavers along the banks.</dd>
+                <dt>Lunch</dt><dd>Dornan's in Moose.</dd>
+                <dt>Afternoon</dt><dd>Taggart Lake loop (about 3 miles) on the way back.</dd>
+              </dl>
+            </div>
+          </div>
+          <div class="track stay">
+            <figure><img src="img/boats.jpg" alt="Boats moored at Colter Bay with Grand Teton behind" loading="lazy"><figcaption>Colter Bay · G. Edward Johnson, CC BY 3.0</figcaption></figure>
+            <div class="inner">
+              <span class="label">Staying back at Colter Bay · on foot</span>
+              <ul>
+                <li>Jackson Lake cruise, or the breakfast or lunch cruise to Elk Island</li>
+                <li>Horseback or wagon ride from the corral</li>
+                <li>Kayaks, canoes, motorboat, or fishing</li>
+                <li>Swan Lake or Hermitage Point hike</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="chips"><span class="chip opt">Float</span><span class="chip opt">Stay at Colter Bay</span></div>
+      </div>
+    </article>
+
+    <article class="day">
+      <figure><img src="img/twoocean.jpg" alt="Mount Moran rising above a lake and forest" loading="lazy"><figcaption>Two Ocean Lake area · S. Zenner, public domain</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Wed Jun 16</span><h3>Free day close to home</h3></div>
+        <p class="drive">Everything within 20 min of Colter Bay</p>
+        <dl class="sched">
+          <dt>5:45 AM</dt><dd>Car to Oxbow Bend for sunrise (10 min): Mount Moran in the water, best odds for moose, otters and eagles.</dd>
+          <dt>Day</dt><dd>Mix and match: horses, the lake cruise, kayaks, fishing, Swan Lake, or the car to Two Ocean Lake (about 6.4 miles, quiet, wildflowers).</dd>
+          <dt>8:30 PM</dt><dd>Car up Signal Mountain Summit Road for sunset over the whole valley. Campers pitch tents at Colter Bay Campground for a campfire night.</dd>
+        </dl>
+        <div class="chips"><span class="chip opt">Oxbow sunrise</span><span class="chip opt">Two Ocean Lake</span><span class="chip opt">Signal Mountain sunset</span><span class="chip opt">Camp night</span></div>
+      </div>
+    </article>
+
+    <article class="day">
+      <figure><img src="img/jll.jpg" alt="Mount Moran framed by the tall windows of Jackson Lake Lodge" loading="lazy"><figcaption>Mount Moran from the Jackson Lake Lodge lobby · Zeete, CC BY-SA 4.0</figcaption></figure>
+      <div class="day-body">
+        <div class="day-head"><span class="date">Thu Jun 17</span><h3>Head home</h3></div>
+        <p class="drive">Colter Bay to JAC: about 50 min. Return the car at the airport.</p>
+        <dl class="sched">
+          <dt>Morning</dt><dd>Coffee on the lake, check out, one last look at the range on the drive south.</dd>
+        </dl>
+      </div>
     </article>
   </div>
 </section>
 
-<section id="flights">
-  <h2>Flights</h2>
-  <p class="intro">There's no summer nonstop from DC or New Orleans to Jackson Hole, so both groups connect once. June 2027 flights are already on sale. Times below are from JAC's summer 2026 schedule and could shift for 2027.</p>
-
-  <div class="two">
-    <div class="panel">
-      <span class="label">From Washington DC · 2 people</span>
-      <ul>
-        <li><b>Denver (United)</b> from Dulles. Five Denver–JAC flights a day, so the most backups if anything runs late.</li>
-        <li><b>Dallas (American)</b> from Reagan. Three DFW–JAC flights a day.</li>
-        <li><b>Chicago O'Hare</b> on United or American.</li>
-        <li><b>Charlotte (American)</b> is the fastest (about 6 h 20 min) but needs a very early start for the 8:55 AM JAC flight.</li>
-        <li>BWI is often the cheapest DC airport.</li>
-      </ul>
+<section id="weather">
+  <h2>Weather</h2>
+  <p class="intro">Live conditions and the week ahead. Starting about two weeks before the trip, the forecast switches to the trip days, highlighted in pink.</p>
+  <div class="wx-grid">
+    <div class="wx" data-lat="43.9043" data-lon="-110.6410">
+      <div class="wx-top"><span class="label">Colter Bay</span><span class="muted mono" data-updated></span></div>
+      <div class="wx-now"><svg class="ico" data-icon viewBox="0 0 24 24" aria-hidden="true"></svg><div><span class="temp" data-temp>—</span><div class="muted" data-desc>Loading…</div></div></div>
+      <div class="wx-days" data-days></div>
     </div>
-    <div class="panel">
-      <span class="label">From New Orleans · 5 people</span>
-      <ul>
-        <li><b>Dallas (American)</b> is the most common connection, about 6 hours total.</li>
-        <li><b>Denver (United)</b>, about 7 flights a day from MSY.</li>
-        <li><b>Houston (United)</b> is the quickest, but the IAH–JAC nonstop ran Fri/Sat only and returned Sat/Sun only in 2026. It fits the arrival, not a Thursday or Friday return.</li>
-        <li><b>Salt Lake (Delta)</b> one nonstop a day from MSY, then four SLC–JAC flights.</li>
-      </ul>
+    <div class="wx" data-lat="43.4799" data-lon="-110.7624">
+      <div class="wx-top"><span class="label">Jackson</span><span class="muted mono" data-updated></span></div>
+      <div class="wx-now"><svg class="ico" data-icon viewBox="0 0 24 24" aria-hidden="true"></svg><div><span class="temp" data-temp>—</span><div class="muted" data-desc>Loading…</div></div></div>
+      <div class="wx-days" data-days></div>
     </div>
   </div>
-
-  <div class="panel rec">
-    <span class="label">Flight times that work with the shuttle</span>
-    <ul>
-      <li><b>Arrival day:</b> any time works, since the first night is in town (9 miles by taxi or shuttle).</li>
-      <li><b>Option A departure from Colter Bay:</b> about 50 min to JAC plus returning the car, so any flight after about 11 AM is comfortable.</li>
-      <li><b>Option B departure from town:</b> 15 min to the airport, so any flight.</li>
-      <li>In 2026, Dallas flights left JAC at 11:52 AM, 1:00 PM and 4:30 PM, and Denver had several a day. Each group books the cheapest option; no need to meet up.</li>
-    </ul>
-    <p class="intro">In town, use the airport shuttle or a taxi (9 miles). The free lodge shuttle between Jackson and Colter Bay is a backup if anyone needs to go up early or come back separately.</p>
+  <div class="wx">
+    <span class="label">What to expect in mid-June · Moran, 30-year averages</span>
+    <div class="normals">
+      <div><span class="label">May</span><br><b>59° / 30°</b><br><span class="muted">2.3 in rain</span></div>
+      <div class="now"><span class="label">June</span><br><b>69° / 37°</b><br><span class="muted">1.7 in rain</span></div>
+      <div><span class="label">July</span><br><b>79° / 42°</b><br><span class="muted">1.2 in rain</span></div>
+    </div>
+    <p class="muted">Mild afternoons, near-freezing mornings, the odd afternoon thunderstorm. Lakes and the river are snowmelt-cold. Pack layers.</p>
   </div>
+</section>
 
-  <div class="panel">
-    <span class="label">Check live fares on Google Flights</span>
-    <ul>
-      <li>From DC: <a href="https://www.google.com/travel/flights?q=Flights%20to%20JAC%20from%20WAS%20on%202027-06-11%20through%202027-06-17">Jun 11–17</a> · <a href="https://www.google.com/travel/flights?q=Flights%20to%20JAC%20from%20WAS%20on%202027-06-12%20through%202027-06-18">Jun 12–18</a></li>
-      <li>From New Orleans: <a href="https://www.google.com/travel/flights?q=Flights%20to%20JAC%20from%20MSY%20on%202027-06-11%20through%202027-06-17">Jun 11–17</a> · <a href="https://www.google.com/travel/flights?q=Flights%20to%20JAC%20from%20MSY%20on%202027-06-12%20through%202027-06-18">Jun 12–18</a></li>
-    </ul>
+<section id="stay">
+  <h2>Where we stay</h2>
+  <div class="stays">
+    <article class="stay">
+      <figure><img src="img/downtown.jpg" alt="Downtown Jackson boardwalks" loading="lazy"></figure>
+      <div class="inner">
+        <span class="pill">Nights 1–2</span>
+        <h3>Antler Inn, Jackson</h3>
+        <p>John's pick. Downtown, walkable to the Town Square, restaurants and galleries. From about $219 a night; two rooms.</p>
+        <p><a href="https://www.townsquareinns.com/hotels/antler-inn/">townsquareinns.com</a></p>
+      </div>
+    </article>
+    <article class="stay">
+      <figure><img src="img/moran2021.jpg" alt="Snow-covered Mount Moran above Jackson Lake" loading="lazy"></figure>
+      <div class="inner">
+        <span class="pill">Nights 3–6</span>
+        <h3>Colter Bay Village</h3>
+        <p>Log cabins on Jackson Lake. Two 2-room cabins with 4 double beds each, about $4,000 for 4 nights.</p>
+        <ul>
+          <li>Marina, horseback corral, campground, store and restaurants all walkable</li>
+          <li>10 min to Oxbow Bend and Jackson Lake Lodge</li>
+          <li>No kitchens; simple furnishings</li>
+        </ul>
+        <p class="mono">307-543-3100 · <a href="https://www.gtlc.com/">gtlc.com</a></p>
+      </div>
+    </article>
   </div>
+  <details class="more">
+    <summary>Alternates we looked at</summary>
+    <div class="tbl"><table>
+      <thead><tr><th>Lodge</th><th>Pros</th><th>Cons</th></tr></thead>
+      <tbody>
+        <tr><td><b>Headwaters at Flagg Ranch</b><br><span class="mono">307-543-2861</span></td><td>5 min to Yellowstone; quiet cabins; horses, fishing, hot springs</td><td>About an hour to the float and airport; spotty cell service</td></tr>
+        <tr><td><b>Signal Mountain Lodge</b><br><span class="mono">877-841-1076</span></td><td>Own marina; one 8-person cabin with a kitchen; most central</td><td>Most expensive; that cabin books early</td></tr>
+        <tr><td><b>Jackson Lake Lodge</b><br><span class="mono">307-543-3100</span></td><td>The famous window; horses on site</td><td>Hotel-style rooms; pricier</td></tr>
+        <tr><td><b>Turpin Meadow Ranch</b><br><span class="mono">307-543-9147</span></td><td>Real ranch; long rides and fly fishing</td><td>Outside the park; meals and activities extra</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+</section>
+
+<section id="travel">
+  <h2>Flights &amp; bookings</h2>
+  <p class="intro">Blanks fill in as things get booked. No summer nonstops from DC or New Orleans, so everyone connects once, usually through Dallas, Denver, Chicago or Atlanta.</p>
   <div class="tbl"><table>
-    <thead><tr><th>Route</th><th>Typical round-trip fare</th><th>Notes</th></tr></thead>
+    <thead><tr><th>Who</th><th>From</th><th>Arrive JAC</th><th>Depart JAC</th><th>Flights</th></tr></thead>
     <tbody>
-      <tr><td><b>DC → Jackson Hole</b></td><td class="num"><b>about $600</b></td><td>Current June 2027 fares, one stop. 2 people ≈ $1,200.</td></tr>
-      <tr><td><b>New Orleans → Jackson Hole</b></td><td class="num"><b>about $500</b></td><td>Current June 2027 fares, one stop. 5 people ≈ $2,500.</td></tr>
-      <tr><td>DC → Salt Lake City</td><td class="num">$340–$575</td><td>Nonstops, but a 5-hour drive to the park.</td></tr>
-      <tr><td>New Orleans → Salt Lake City</td><td class="num">$395–$600</td><td>One Delta nonstop a day.</td></tr>
-      <tr><td>Either → Bozeman / Idaho Falls</td><td class="num">$360–$740</td><td>Not clearly cheaper in June, and adds a long drive.</td></tr>
+      <tr><td>John &amp; Lee</td><td>DC area, after Katherine's graduation Jun 9</td><td class="blank">Fri Jun 11 · time TBD</td><td class="blank">Thu Jun 17 · time TBD</td><td class="blank">TBD</td></tr>
+      <tr><td>Scott, Ashley &amp; family (5)</td><td>New Orleans (MSY)</td><td class="blank">Fri Jun 11 · time TBD</td><td class="blank">Thu Jun 17 · time TBD</td><td class="blank">TBD</td></tr>
     </tbody>
   </table></div>
-  <p class="intro">Jackson Hole fares are per person, round trip, from a June 2027 check in October 2026; flights for all 7 come to about $3,700. With two Colter Bay cabins for 4 nights (about $4,000) and two Jackson hotel rooms for 2 nights (about $800–$1,500), flights and lodging total roughly $8,500–$9,200, or about $1,200–$1,300 a person. The Salt Lake, Bozeman and Idaho Falls rows are KAYAK route averages. Jackson Hole doesn't look much pricier than the alternates once you count the drive, so fly into JAC. Set fare alerts now and book on changeable fares; the small JAC planes on the best connections can sell out.</p>
-</section>
+  <p class="muted">Book return flights after about 11 AM to allow the 50-minute drive from Colter Bay and the car return. Round trips have been running about $600 from DC and $500 from New Orleans.</p>
 
-<section id="lodging">
-  <h2>Where to stay</h2>
-  <p class="intro">Colter Bay Village is the pick. Headwaters and Signal Mountain are the alternates if Colter Bay is full or the group wants something different.</p>
-  <div class="two">
-    <div class="panel rec">
-      <span class="label">Pick · Colter Bay Village</span>
-      <p class="mono">307-543-3100 · gtlc.com · from about $299/night</p>
-      <p><b>Pros</b></p>
-      <ul>
-        <li>Nice log cabins on Jackson Lake, inside the park</li>
-        <li>Two 2-room cabins (4 double beds each, 4 people per cabin) for about $6,000 for 6 nights including tax</li>
-        <li>Marina, horseback corral, campground, store and restaurants all walkable</li>
-        <li>10 min to Oxbow Bend and Jackson Lake Lodge</li>
-      </ul>
-      <p><b>Cons</b></p>
-      <ul>
-        <li>No kitchen; simple furnishings</li>
-        <li>About 45 min to the Moose float, 50 min to the airport</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Alternate · Headwaters Lodge at Flagg Ranch</span>
-      <p class="mono">307-543-2861 · gtlc.com · from about $354/night</p>
-      <p><b>Pros</b></p>
-      <ul>
-        <li>About 5 min to Yellowstone's South Entrance, so the Yellowstone day gets much shorter</li>
-        <li>Quiet forest cabins with private baths; 2-queen cabins sleep up to 5, so two cabins fit 8</li>
-        <li>Horseback rides, fly fishing on the Snake River, Huckleberry Hot Springs nearby</li>
-        <li>Well reviewed (about 8.6/10); restaurant on site</li>
-      </ul>
-      <p><b>Cons</b></p>
-      <ul>
-        <li>About an hour to the Moose float and the airport; 30 min to Colter Bay and Two Ocean Lake</li>
-        <li>No kitchens; spotty Wi-Fi and cell service</li>
-        <li>Confirm it's fully open by June 10–12</li>
-      </ul>
-    </div>
-    <div class="panel">
-      <span class="label">Alternate · Signal Mountain Lodge</span>
-      <p class="mono">877-841-1076 · signalmountainlodge.com · from about $496/night</p>
-      <p><b>Pros</b></p>
-      <ul>
-        <li>On Jackson Lake with its own marina: kayaks, canoes, motorboats, guided lake fishing</li>
-        <li>One "Home Away from Home" cabin sleeps 8 with a full kitchen</li>
-        <li>Lakefront units with Teton views; campground next door</li>
-        <li>Most central: about 35 min to Moose, 40 min to the airport</li>
-      </ul>
-      <p><b>Cons</b></p>
-      <ul>
-        <li>Most expensive of the three</li>
-        <li>Only one 8-person cabin, so it books early</li>
-        <li>Rustic cabins are simple and older</li>
-      </ul>
-    </div>
-  </div>
-  <p class="intro">Also looked at: Jackson Lake Lodge (hotel-style, pricier), Jenny Lake Lodge (luxury, very expensive), Turpin Meadow Ranch and Togwotee Mountain Lodge (outside the park, longer drives).</p>
-</section>
-
-<section id="activities">
-  <h2>Activities and costs</h2>
   <div class="tbl"><table>
-    <thead><tr><th>Activity</th><th>Who / limits</th><th>Cost</th><th>Book</th></tr></thead>
+    <thead><tr><th>Booking</th><th>Dates</th><th>Status</th><th>Confirmation</th></tr></thead>
     <tbody>
-      <tr><td>Triangle X scenic float (10 mi)</td><td>Must sit unsupported in a raft and wear a life vest</td><td class="num">Check current rates</td><td>Triangle X / National Park Float Trips, 307-733-5500</td></tr>
-      <tr><td>Horseback ride, Colter Bay or Jackson Lake Lodge</td><td>Age 8+, at least 4 ft tall, under 225 lb; closed-toe shoes</td><td class="num">$71–$106</td><td>Grand Teton Lodge Company</td></tr>
-      <tr><td>Guided fly fishing (Triangle X)</td><td>1–2 anglers per boat</td><td class="num">$675 half day · $800 full day</td><td>307-733-5500; Wyoming license sold there</td></tr>
-      <tr><td>Kayak, canoe, SUP rentals</td><td>Everyone, life jackets required</td><td class="num">Hourly</td><td>Colter Bay marina, walk-up</td></tr>
-      <tr><td>Park entry</td><td>One pass per vehicle</td><td class="num">Annual pass covers both parks</td><td>Buy online or at the gate</td></tr>
+      <tr><td>Antler Inn, 2 rooms</td><td>Jun 11–13</td><td class="blank">To book</td><td class="blank">—</td></tr>
+      <tr><td>Colter Bay, two 2-room cabins</td><td>Jun 13–17</td><td class="blank">To book</td><td class="blank">—</td></tr>
+      <tr><td>Rental: Suburban, Expedition MAX or 12-passenger van</td><td>Pick up Jun 13 in Jackson · return Jun 17 at JAC</td><td class="blank">To book</td><td class="blank">—</td></tr>
+      <tr><td>Snake River scenic float</td><td>Tue Jun 15</td><td class="blank">To book</td><td class="blank">—</td></tr>
+      <tr><td>Horseback rides, Colter Bay corral</td><td>Mon or Wed</td><td class="blank">Headcount first</td><td class="blank">—</td></tr>
+      <tr><td>Guided fishing</td><td>TBD</td><td class="blank">Optional</td><td class="blank">—</td></tr>
+      <tr><td>Colter Bay campsite</td><td>Wed Jun 16 · opens about Dec 16 on Recreation.gov</td><td class="blank">Opens 6 months ahead</td><td class="blank">—</td></tr>
+      <tr><td>Celebration dinner</td><td>Sat Jun 12</td><td class="blank">To book</td><td class="blank">—</td></tr>
     </tbody>
   </table></div>
 </section>
 
 <section id="checklist">
-  <h2>Booking checklist</h2>
-  <p class="intro">Checkmarks save on your own device only.</p>
-  <ul class="check" id="checklist-items">
-    <li><input type="checkbox" id="c-dates"><label for="c-dates">Pick Jun 11 or Jun 12 arrival<small>Everything else keys off this.</small></label><span class="when">Now</span></li>
-    <li><input type="checkbox" id="c-lodge"><label for="c-lodge">Reserve Colter Bay cabins<small>Call 307-543-3100 or book at gtlc.com. Book two 2-room, 4-double cabins next to each other for 4 nights (about $4,000; a June 2027 search priced 6 nights at about $6,000).</small></label><span class="when">Now</span></li>
-    <li><input type="checkbox" id="c-town"><label for="c-town">Two hotel rooms in Jackson for the town nights<small>In-town options start around $200–$380 a room; book direct with the hotel.</small></label><span class="when">Winter</span></li>
-    <li><input type="checkbox" id="c-fly"><label for="c-fly">Book flights for both groups<small>Same last leg into JAC; separate reservations per group.</small></label><span class="when">Now–Feb</span></li>
-    <li><input type="checkbox" id="c-vans"><label for="c-vans">One large vehicle for 7 plus luggage, picked up in Jackson<small>A Suburban, Expedition MAX or 12-passenger van; a standard 7-seat SUV is too tight with bags. Pick up the morning you head north (Sun Jun 13 in Option A), return at JAC (A) or in town (B). Big vehicles sell out in June, so reserve once dates are set. Plus gas and $35 park entry.</small></label><span class="when">Winter</span></li>
-    <li><input type="checkbox" id="c-float"><label for="c-float">Triangle X float for the group<small>Morning 10-mile trip, or the evening dinner float.</small></label><span class="when">Winter</span></li>
-    <li><input type="checkbox" id="c-fish"><label for="c-fish">John's fly fishing guide<small>Half day, early season below the dam.</small></label><span class="when">Winter</span></li>
-    <li><input type="checkbox" id="c-camp"><label for="c-camp">Campsite for the camp-out night<small>Colter Bay Campground on Recreation.gov; sites open 6 months ahead.</small></label><span class="when">Dec 11–12</span></li>
-    <li><input type="checkbox" id="c-horse"><label for="c-horse">Horseback rides for whoever wants one<small>Headcount first; 8+ and under 225 lb.</small></label><span class="when">Spring</span></li>
-    <li><input type="checkbox" id="c-dinner"><label for="c-dinner">Celebration dinner reservation<small>In Jackson, night 6.</small></label><span class="when">Spring</span></li>
-    <li><input type="checkbox" id="c-pass"><label for="c-pass">Park pass, Wyoming fishing license, bear spray<small>Bear spray can't fly; buy or rent in Jackson.</small></label><span class="when">Before trip</span></li>
-  </ul>
+  <h2>Checklists</h2>
+  <p class="intro">Checkmarks save on your own phone or computer.</p>
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-tab="book" id="tab-book">Booking</button>
+    <button type="button" role="tab" aria-selected="false" data-tab="pack" id="tab-pack">Packing</button>
+  </div>
+  <div class="progress"><div class="progress-head"><b id="prog-name">Booking</b><span class="mono" id="prog-count">0 / 0</span></div><div class="bar"><i id="prog-fill"></i></div></div>
+  <div class="cats" id="cats"></div>
 </section>
 
-<section id="sources" class="sources">
-  <h2>Sources</h2>
+<section id="costs">
+  <h2>Costs</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Item</th><th>Estimate</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Flights, all 7</td><td class="num">≈ $3,700</td><td>2 × ~$600 from DC, 5 × ~$500 from New Orleans</td></tr>
+      <tr><td>Colter Bay, two cabins × 4 nights</td><td class="num">≈ $4,000</td><td>From a June 2027 search</td></tr>
+      <tr><td>Antler Inn, two rooms × 2 nights</td><td class="num">≈ $900–$1,200</td><td>From about $219 a room</td></tr>
+      <tr><td>Rental vehicle, 4 days</td><td class="num">TBD</td><td>Plus gas and $35 park entry (or $80 annual pass)</td></tr>
+      <tr><td>Snake River float</td><td class="num">≈ $700</td><td>$99 adult, $85 ages 6–12</td></tr>
+      <tr><td>Horseback, guided fishing, lake cruise</td><td class="num">varies</td><td>Rides $71–$106; guided fishing $675 per boat</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="sources">
+  <h2>Sources &amp; photo credits</h2>
   <ul>
-    <li><a href="https://www.jacksonholeairport.com/wp-content/uploads/2026/02/2.11.26-JAC-Summer-Schedule-.pdf">Jackson Hole Airport summer 2026 schedule</a></li>
-    <li><a href="https://www.jacksonholeairport.com/wp-content/uploads/2026/10/2026-2027-Winter-Flight-Schedule-JAC.pdf">JAC 2026–27 winter schedule (Dulles nonstop is winter only)</a></li>
-    <li><a href="https://www.kayak.com/flight-routes/Washington-WAS/Jackson-Hole-JAC">KAYAK: Washington to Jackson Hole</a> · <a href="https://www.kayak.com/flight-routes/New-Orleans-Louis-Armstrong-MSY/Jackson-Hole-JAC">New Orleans to Jackson Hole</a></li>
-    <li><a href="https://blog.enjoyyourparks.com/?p=114">Grand Teton hikes in late spring and early summer</a></li>
-    <li><a href="https://trianglex.com/river-trips/fishing-trips/">Triangle X fishing trips</a> · <a href="https://www.jacksonholewy.com/directory/triangle-x-float-trips/">Triangle X float trips</a></li>
-    <li><a href="https://www.signalmountainlodge.com/lodging/signal-mountain-lodge/">Signal Mountain Lodge rooms and cabins</a></li>
-    <li><a href="https://www.islands.com/1864833/hidden-wyoming-mountains-cozy-spacious-gateway-togwotee-lodge-national-parks-grand-teton-yellowstone">Togwotee Mountain Lodge overview</a> · <a href="https://sunset.com/travel/dude-ranch">Turpin Meadow Ranch (Sunset)</a></li>
-    <li><a href="https://www.gtlc.com/activities/horseback-riding">Grand Teton Lodge Company horseback riding</a></li>
-    <li><a href="https://www.nps.gov/places/000/signal-mountain-marina.htm">NPS: Signal Mountain marina</a> · <a href="https://home.nps.gov/grte/planyourvisit/lodging.htm">NPS: Grand Teton lodging and phone numbers</a></li>
-    <li><a href="https://www.gtnpf.org/blog-post/adventure-journal-fly-fishing-in-grand-teton">Grand Teton fly fishing guide</a></li>
+    <li><a href="https://www.gtlc.com/lodges">Grand Teton Lodge Company</a> · <a href="https://www.gtlc.com/activities/horseback-riding">horseback riding</a> · <a href="https://www.gtlc.com/activities/complimentary-guest-shuttle/">guest shuttle</a></li>
+    <li><a href="https://home.nps.gov/grte/planyourvisit/lodging.htm">NPS: Grand Teton lodging</a> · <a href="https://www.nps.gov/grte/planyourvisit/fees.htm">fees and passes</a></li>
+    <li><a href="https://usclimatedata.com/climate/moran/wyoming/united-states/uswy0123">US Climate Data: Moran, WY</a> · live weather from <a href="https://open-meteo.com/">Open-Meteo</a></li>
+    <li><a href="https://www.jacksonholeairport.com/">Jackson Hole Airport</a> · <a href="https://www.townsquareinns.com/hotels/antler-inn/">Antler Inn</a></li>
+    <li>Photos from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>: <a href="https://commons.wikimedia.org/wiki/File:Mount_Moran_Reflected_in_String_Lake_-_Grand_Teton_National_Park.jpg">Stan Petersen</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Wy_Jackson_tsquare_stagecoach.jpg">CowboyWisdom</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Downtown_Jackson_Wyoming_USA.JPG">Greg Tally</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Barns_grand_tetons.jpg">Jon Sullivan</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Late_afternoon_view_from_Grand_Prismatic_Spring_Overlook.jpg">Eddiewexler</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Yellowstone_National_Park_(WY,_USA),_Old_Faithful_Geyser_--_2022_--_2599.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Moose_in_Grand_Teton_NP_near_Leigh_Lake-750px.JPG">moose near Leigh Lake</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Snake_River_Signal_Mountain.jpg">Thomas Kriese</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Adams_The_Tetons_and_the_Snake_River.jpg">Ansel Adams</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Colter_bay_boats_20100822_080110_1.jpg">G. Edward Johnson</a> (CC BY 3.0), <a href="https://commons.wikimedia.org/wiki/File:Two_Ocean_Lake_S._Zenner.jpg">S. Zenner</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Mount_Moran_from_the_lobby_of_the_Jackson_Lake_Lodge,_WY.jpg">Zeete</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Mount_Moran,_April_2021.jpg">Richardmouser</a> (CC BY-SA 4.0).</li>
   </ul>
 </section>
 
-<footer>Planning draft, October 2026. Prices and schedules change; confirm before booking.</footer>
-</div>
+</main>
+
+<footer><div class="wrap">Planning draft, updated October 2026. Prices and schedules change; confirm before booking.</div></footer>
 
 <script>
 (function(){
-  var KEY='tetons2027';
-  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){return {}}}
-  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
-  var state=load();
-  function setOpt(o){
-    document.querySelectorAll('.toggle button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.opt===o))});
-    document.querySelectorAll('[data-a]').forEach(function(el){el.textContent=el.dataset[o]});
-    state.opt=o;save(state);
-  }
-  document.querySelectorAll('.toggle button').forEach(function(b){b.addEventListener('click',function(){setOpt(b.dataset.opt)})});
-  if(state.opt==='b')setOpt('b');
-  state.checks=state.checks||{};
-  document.querySelectorAll('#checklist-items input').forEach(function(cb){
-    cb.checked=!!state.checks[cb.id];
-    cb.closest('li').classList.toggle('done',cb.checked);
-    cb.addEventListener('change',function(){state.checks[cb.id]=cb.checked;cb.closest('li').classList.toggle('done',cb.checked);save(state)});
+  var trip=new Date('2027-06-11T00:00:00-06:00');
+  function tick(){var d=Math.max(0,Math.ceil((trip-new Date())/86400000));document.getElementById('cd-days').textContent=d;document.getElementById('cd-weeks').textContent=Math.floor(d/7);}
+  tick(); setInterval(tick,3600000);
+
+  var ICONS={
+    sun:'<circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    partly:'<circle cx="9" cy="9" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 19h9a3.5 3.5 0 0 0 0-7 5 5 0 0 0-9.6 1.5A3 3 0 0 0 8 19z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    cloud:'<path d="M7 18h10a4 4 0 0 0 0-8 5.5 5.5 0 0 0-10.6 1.6A3.3 3.3 0 0 0 7 18z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>',
+    fog:'<path d="M4 9h16M3 13h18M5 17h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    rain:'<path d="M7 14h10a4 4 0 0 0 0-8 5.5 5.5 0 0 0-10.6 1.6A3.3 3.3 0 0 0 7 14z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 17l-1 3M12 17l-1 3M16 17l-1 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    snow:'<path d="M7 14h10a4 4 0 0 0 0-8 5.5 5.5 0 0 0-10.6 1.6A3.3 3.3 0 0 0 7 14z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="8" cy="18" r="1.1" fill="currentColor"/><circle cx="12" cy="20" r="1.1" fill="currentColor"/><circle cx="16" cy="18" r="1.1" fill="currentColor"/>',
+    storm:'<path d="M7 14h10a4 4 0 0 0 0-8 5.5 5.5 0 0 0-10.6 1.6A3.3 3.3 0 0 0 7 14z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 15l-2 4h3l-2 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>'
+  };
+  function kind(c){if(c===0)return['sun','Clear'];if(c<=2)return['partly','Partly cloudy'];if(c===3)return['cloud','Cloudy'];if(c===45||c===48)return['fog','Fog'];if(c>=51&&c<=67)return['rain','Rain'];if(c>=71&&c<=77)return['snow','Snow'];if(c>=80&&c<=82)return['rain','Showers'];if(c>=85&&c<=86)return['snow','Snow showers'];if(c>=95)return['storm','Thunderstorms'];return['cloud','Cloudy'];}
+  var tripDays=['2027-06-11','2027-06-12','2027-06-13','2027-06-14','2027-06-15','2027-06-16','2027-06-17'];
+  document.querySelectorAll('.wx[data-lat]').forEach(function(box){
+    var u='https://api.open-meteo.com/v1/forecast?latitude='+box.dataset.lat+'&longitude='+box.dataset.lon+'&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FDenver&forecast_days=16';
+    function get(n){return fetch(u).then(function(r){if(!r.ok)throw r;return r.json()}).catch(function(e){if(n>0)return new Promise(function(res){setTimeout(res,1500)}).then(function(){return get(n-1)});throw e;});}
+    get(2).then(function(j){
+      var k=kind(j.current.weather_code);
+      box.querySelector('[data-icon]').innerHTML=ICONS[k[0]];
+      box.querySelector('[data-temp]').textContent=Math.round(j.current.temperature_2m)+'°F';
+      box.querySelector('[data-desc]').textContent=k[1]+' · wind '+Math.round(j.current.wind_speed_10m)+' mph';
+      box.querySelector('[data-updated]').textContent='right now';
+      var d=j.daily, start=0, ft=d.time.indexOf(tripDays[0]);
+      if(ft>=0) start=Math.max(0,Math.min(ft,d.time.length-7));
+      var html='';
+      for(var i=start;i<Math.min(start+7,d.time.length);i++){
+        var dt=new Date(d.time[i]+'T12:00:00'), kk=kind(d.weather_code[i]), t=tripDays.indexOf(d.time[i])>=0;
+        html+='<div class="'+(t?'trip':'')+'" title="'+kk[1]+'"><span>'+dt.toLocaleDateString('en-US',{weekday:'short'})+'</span><svg class="ico" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[kk[0]]+'</svg><b>'+Math.round(d.temperature_2m_max[i])+'°</b><span class="lo">'+Math.round(d.temperature_2m_min[i])+'°</span></div>';
+      }
+      box.querySelector('[data-days]').innerHTML=html;
+    }).catch(function(){box.querySelector('[data-desc]').textContent='Forecast unavailable right now.';});
   });
+
+  var LISTS={
+    book:{name:'Booking',cats:[
+      {t:'Now',items:[
+        ['Settle Option A or B with Lee','John defers to Lee; she weighs in this weekend.','Now'],
+        ['Book the Antler Inn, 2 rooms','Fri Jun 11 – Sun Jun 13.','Now'],
+        ['Book two 2-room Colter Bay cabins','307-543-3100 or gtlc.com. Ask for cabins next to each other.','Now'],
+        ['Book flights','John & Lee from DC; 5 from New Orleans. Return after about 11 AM.','Now–Feb']]},
+      {t:'Winter',items:[
+        ['Reserve one large vehicle','Suburban, Expedition MAX or 12-passenger van. Pick up Sun Jun 13 in Jackson, return Thu at JAC.','Winter'],
+        ['Book the Snake River float for the group','Tue Jun 15.','Winter'],
+        ['Colter Bay campsite for camp night','Recreation.gov, 6 months ahead.','Dec 16']]},
+      {t:'Spring',items:[
+        ['Horseback rides','Headcount first. Age 8+, under 225 lb, closed-toe shoes.','Spring'],
+        ['Celebration dinner reservation','Sat Jun 12 in Jackson.','Spring'],
+        ['Optional: guided fishing','Guided lake trips leave from the Colter Bay marina.','Spring'],
+        ['Check Moose-Wilson Road and trail status','Ask the park about mid-June openings.','May']]}
+    ]},
+    pack:{name:'Packing',cats:[
+      {t:'Layers & clothes',items:[
+        ['Warm jacket or fleece','Mornings near freezing.'],['Rain jacket',''],['Warm hat and light gloves',''],['Hiking shoes or boots',''],['Water shoes or sandals','For kayaks and the float.'],['Swimsuit','Quick dips only; the water is cold.'],['Sun hat and sunglasses','']]},
+      {t:'Day gear',items:[
+        ['Daypack and water bottle',''],['Binoculars','For moose, bears and eagles.'],['Sunscreen and lip balm','Strong sun at altitude.'],['Bug spray',''],['Headlamp',''],['Bear spray','Buy or rent in Jackson; it can’t fly.']]},
+      {t:'Camp night',items:[
+        ['Sleeping bag rated to about 30°F',''],['Sleeping pad',''],['Tent','Or rent in Jackson.']]},
+      {t:'Fishing',items:[
+        ['Wyoming fishing license','Buy online or at the marina store.'],['Rod, reel and flies','Or rent, or go guided.']]},
+      {t:'Documents',items:[
+        ['ID for flights',''],['Park pass','The $80 annual pass covers Yellowstone too.'],['Confirmation numbers','Lodging, car, float.']]}
+    ]}
+  };
+  var KEY='tetons2027-checks', state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  var current='book';
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function render(){
+    var L=LISTS[current], html='', total=0, done=0;
+    L.cats.forEach(function(c,ci){
+      html+='<div class="cat"><h3>'+esc(c.t)+'</h3><ul class="items">';
+      c.items.forEach(function(it,ii){
+        var id=current+'-'+ci+'-'+ii, on=!!state[id]; total++; if(on)done++;
+        html+='<li class="'+(on?'done':'')+'"><input type="checkbox" id="'+id+'" '+(on?'checked':'')+'><label for="'+id+'">'+esc(it[0])+(it[1]?'<small>'+esc(it[1])+'</small>':'')+'</label>'+(it[2]?'<span class="when">'+esc(it[2])+'</span>':'<span></span>')+'</li>';
+      });
+      html+='</ul></div>';
+    });
+    document.getElementById('cats').innerHTML=html;
+    document.getElementById('prog-name').textContent=L.name;
+    document.getElementById('prog-count').textContent=done+' / '+total;
+    document.getElementById('prog-fill').style.width=(total?done/total*100:0)+'%';
+    document.querySelectorAll('#cats input').forEach(function(cb){cb.addEventListener('change',function(){state[cb.id]=cb.checked;save();render();})});
+  }
+  document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){current=b.dataset.tab;document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});render();})});
+  render();
 })();
 </script>
 </body>
